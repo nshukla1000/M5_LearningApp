@@ -12,12 +12,15 @@ class ContentModel: ObservableObject {
     @Published var modules = [Module]()
     var styleData: Data?
     
+    @Published var currentModule: Module?
+    var currentModuleIndex = 0
+    
     init(){
         
         getLocalData()
         
     }
-    
+    //MARK: - Data Methods
     func getLocalData(){
         //get URL to json file
         let jsonURL = Bundle.main.url(forResource: "data", withExtension: "json")
@@ -51,6 +54,20 @@ class ContentModel: ObservableObject {
         //decode
         
         
+        
+    }
+    
+    // MARK: Module Navigation Methods
+    
+    func beginModule(_ moduleid: Int) {
+        
+        for index in 0..<modules.count {
+            if modules[index].id == moduleid {
+             currentModuleIndex = moduleid
+                break
+            }
+        }
+        currentModule = modules[currentModuleIndex]
         
     }
     
